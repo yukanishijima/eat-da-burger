@@ -11,7 +11,7 @@ $(function () {
     };
 
     let currentURL = window.location.origin;
-    $.ajax(currentURL + "/api/burgers/" + id, {
+    $.ajax(currentURL + "/api/burgers/devoured/" + id, {
       type: "PUT",   //there's no jQuery helper function for PUT requests
       data: newDevouredState
     }).then(function () {
@@ -26,24 +26,39 @@ $(function () {
   $(".burger-form").on("submit", function (event) {
     event.preventDefault();
 
-    const newBurger = {
-      burger_name: $("#burger-name").val()
-    };
 
-    let currentURL = window.location.origin;
-    $.post(currentURL + "/api/burgers", newBurger)
-      .then(function (data) {
-        console.log(data);
-        // reload the page to display updated list
-        location.reload();
-      });
+    if ($("#burger-name").val() === "") {
+      console.log("Enter a burger name!");
+    } else {
+      const newBurger = {
+        burger_name: $("#burger-name").val()
+      };
+
+      let currentURL = window.location.origin;
+      $.post(currentURL + "/api/burgers", newBurger)
+        .then(function (data) {
+          console.log(data);
+          // reload the page to display updated list
+          location.reload();
+        });
+    }
+
   });
 
 
-  //when delete button is clicked, delete the burger from the page
+  // when delete button is clicked, delete the burger from the page
   $(".delete-btn").on("click", function () {
-    const num = $(this).data("id");
-    $(".devoured-burger" + num).remove();
+    const id = $(this).data("id");
+
+    let currentURL = window.location.origin;
+    $.ajax(currentURL + "/api/burgers/delete/" + id, {
+      type: "DELETE"
+    }).then(function () {
+      console.log(`id: ${id} is deleted!`);
+      $(".devoured-burger" + id).remove();
+      // location.reload();
+    });
+
   });
 
 });

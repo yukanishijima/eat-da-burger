@@ -11,7 +11,7 @@ const orm = {
     });
   },
   insertOne: function (tableName, colName, val, cb) {
-    const querySting = `INSERT INTO ${tableName} (${colName}) VALUES ("${val}");`;
+    const querySting = `INSERT INTO ${tableName} (${colName}) VALUES ("${val}")`;
     connection.query(querySting, function (err, result) {
       if (err) {
         throw err
@@ -20,8 +20,17 @@ const orm = {
     });
   },
   updateOne: function (tableName, colName, boolean, condition, cb) {
-    const querySting = `UPDATE ${tableName} SET ${colName} = ${boolean} WHERE ${condition};`
+    const querySting = `UPDATE ${tableName} SET ${colName} = ${boolean} WHERE ${condition}`;
     connection.query(querySting, function (err, result) {
+      if (err) {
+        throw err
+      };
+      cb(result);
+    });
+  },
+  deleteOne: function (tableName, condition, cb) {
+    const queryString = `DELETE FROM ${tableName} WHERE ${condition}`;
+    connection.query(queryString, function (err, result) {
       if (err) {
         throw err
       };

@@ -25,7 +25,7 @@ router.post("/api/burgers", function (req, res) {
 
 
 // update devoured false to true (when devour btn is clicked)
-router.put("/api/burgers/:id", function (req, res) {
+router.put("/api/burgers/devoured/:id", function (req, res) {
   const condition = `id = ${req.params.id};`;
   const boolean = req.body.devoured;
 
@@ -37,6 +37,21 @@ router.put("/api/burgers/:id", function (req, res) {
       //if no rows were changed, the ID must not exist so 404
       return res.status(404).end();
     }
+    res.status(202).end();
+  });
+});
+
+
+//delete devoured burger (when delete btn is clicked)
+router.delete("/api/burgers/delete/:id", function (req, res) {
+  const condition = `id = ${req.params.id}`;
+
+  burger.deleteOne(condition, function (result) {
+    if (result.changeRows === 0) {
+      //if no rows were changed, the ID must not exist so 404
+      return res.status(404).end();
+    }
+    console.log(result.changeRows);
     res.status(202).end();
   });
 });
