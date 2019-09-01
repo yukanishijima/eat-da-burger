@@ -33,10 +33,11 @@ router.put("/api/burgers/devoured/:id", function (req, res) {
   // console.log("req.body.devoured", boolean);
 
   burger.updateOne(boolean, condition, function (result) {
-    if (result.changeRows === 0) {
+    if (result.changedRows === 0) {
       //if no rows were changed, the ID must not exist so 404
       return res.status(404).end();
     }
+    // console.log(`changeRows: ${result.changedRows}`);
     res.status(202).end();
   });
 });
@@ -47,11 +48,11 @@ router.delete("/api/burgers/delete/:id", function (req, res) {
   const condition = `id = ${req.params.id}`;
 
   burger.deleteOne(condition, function (result) {
-    if (result.changeRows === 0) {
+    if (result.changedRows === 0) {
       //if no rows were changed, the ID must not exist so 404
       return res.status(404).end();
     }
-    console.log(result.changeRows);
+    // console.log(`changeRows: ${result.changedRows}`);
     res.status(202).end();
   });
 });
