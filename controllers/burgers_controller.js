@@ -44,7 +44,7 @@ router.put("/api/burgers/devoured/:id", function (req, res) {
 
 
 //delete devoured burger (when delete btn is clicked)
-router.delete("/api/burgers/delete/:id", function (req, res) {
+router.delete("/api/burgers/:id", function (req, res) {
   const condition = `id = ${req.params.id}`;
 
   burger.deleteOne(condition, function (result) {
