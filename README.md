@@ -2,7 +2,7 @@
 
 This is a restaurant app that lets users add the names of burgers and eat them!    
 
-<!-- [Live] -->
+[Live](https://intense-island-52740.herokuapp.com)
 
 ![gif](/public/assets/images/demo.gif)
 
